@@ -13,8 +13,8 @@ public class Graph
 
     public void AddNode (GameObject id)
     {
-        Ñode node = new Node (id);
-        nodes.Add (node);
+        Node node = new Node(id);
+        nodes.Add(node);
 
     }
 
@@ -46,8 +46,16 @@ public class Graph
 
     public bool Astar(GameObject startID, GameObject endID)
     {
+        if (startID == endID)
+        {
+            pathList.Clear ();
+            return false;
+        }
+
         Node start = FindNode(startID);
         Node end = FindNode(endID);
+        Debug.Log("Start: " + start.getID().name);
+        Debug.Log("End: " + end.getID().name);
 
         if (start == null || end == null)
         {
@@ -68,7 +76,7 @@ public class Graph
         {
             int i = lowestF(open);
             Node thisNode = open[i];
-            if (thisNode.getID() == endId)
+            if (thisNode.getID() == endID)
             {
                 ReconstructPath(start, end);
                 return true;
